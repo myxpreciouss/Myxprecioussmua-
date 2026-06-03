@@ -11,23 +11,21 @@ interface ServiceCard {
 const services: ServiceCard[] = [
   {
     title: "Bridal",
-    subtitle: "Services",
     description: "Bridal trial and special day service",
     image: "/IMG-20260507-WA0014.jpg",
-    href: "/Booking",
+    href: "/Bridal",
   },
   {
     title: "Occasion",
-    subtitle: "Services",
-    description: "Prom, graduation, parties, baby showers",
+    description: "Prom, graduation, parties, baby showers etc",
     image: "/IMG-20260602-WA0007.jpg",
-    href: "/Booking",
+    href: "/Occasion",
   },
   {
     title: "Collaboration",
     description: "Content creation, photo-shoot, commercial etc.",
     image: "/remi2.png",
-    href: "/Booking",
+    href: "/Collab",
   },
 ];
 
@@ -320,10 +318,8 @@ export default function ServicesCards() {
 
               {/* Text */}
               <div className="sv-card-body">
-                <span className="sv-card-category">Services</span>
                 <h3 className="sv-card-title">
                   {svc.title}
-                  {svc.subtitle && <span>{svc.subtitle}</span>}
                 </h3>
                 <div className="sv-card-rule" />
                 <p className="sv-card-desc">{svc.description}</p>

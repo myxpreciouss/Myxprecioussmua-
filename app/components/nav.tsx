@@ -10,7 +10,6 @@ const navLinks = [
   { href: "/Occasion", label: "Occasion" },
   { href: "/Collab", label: "Collab" },
   { href: "/Spotlight", label: "Spotlight" },
-  { href: "/Booking", label: "Booking" },
   { href: "/Contact", label: "Contact" },
 ];
 
@@ -158,7 +157,7 @@ export default function Navbar() {
           {/* Desktop CTA */}
           <div className="hidden md:block">
             <Link
-              href="/Booking"
+              href="/"
               className="text-xs uppercase tracking-widest px-5 py-2 rounded-full transition-all duration-250"
               style={{
                 fontFamily: "'Jost', sans-serif",
@@ -172,7 +171,7 @@ export default function Navbar() {
               onMouseOver={e => (e.currentTarget.style.boxShadow = "0 4px 20px rgba(201,169,110,0.5)")}
               onMouseOut={e => (e.currentTarget.style.boxShadow = "0 2px 12px rgba(201,169,110,0.3)")}
             >
-              Book Now
+              Request Appointment
             </Link>
           </div>
 

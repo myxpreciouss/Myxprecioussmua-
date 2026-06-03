@@ -15,7 +15,6 @@ export default function Footer() {
             <Link href="/Spotlight" className="text-xs tracking-[0.15em] uppercase text-[#a3836c] hover:text-[#d3cac2] transition-colors duration-200" style={{ fontFamily: "'Jost', sans-serif", fontWeight: 300 }}>Spotlight</Link>
             <Link href="/Bridal" className="text-xs tracking-[0.15em] uppercase text-[#a3836c] hover:text-[#d3cac2] transition-colors duration-200" style={{ fontFamily: "'Jost', sans-serif", fontWeight: 300 }}>Bridal</Link>
             <Link href="/Collab" className="text-xs tracking-[0.15em] uppercase text-[#a3836c] hover:text-[#d3cac2] transition-colors duration-200" style={{ fontFamily: "'Jost', sans-serif", fontWeight: 300 }}>Collab</Link>
-            <Link href="/Booking" className="text-xs tracking-[0.15em] uppercase text-[#a3836c] hover:text-[#d3cac2] transition-colors duration-200" style={{ fontFamily: "'Jost', sans-serif", fontWeight: 300 }}>Booking</Link>
             <Link href="/Contact" className="text-xs tracking-[0.15em] uppercase text-[#a3836c] hover:text-[#d3cac2] transition-colors duration-200" style={{ fontFamily: "'Jost', sans-serif", fontWeight: 300 }}>Contact</Link>
           </nav>
         </div>

@@ -239,11 +239,11 @@ export default function GetInTouch() {
                     Email
                   </p>
                   <a
-                    href="mailto:precious@gmail.com"
+                    href="mailto:myxprecioussmua@outlook.com"
                     className="text-sm text-[#5a4435] transition-colors duration-200 hover:text-[#c9a96e]"
                     style={{ fontFamily: "'Lora', Georgia, serif", wordBreak: "break-all" }}
                   >
-                    precious@gmail.com
+                    myxprecioussmua@outlook.com
                   </a>
                 </div>
               </div>
@@ -271,7 +271,7 @@ export default function GetInTouch() {
                     className="text-sm text-[#5a4435] transition-colors duration-200 hover:text-[#c9a96e]"
                     style={{ fontFamily: "'Lora', Georgia, serif" }}
                   >
-                    078843747683
+                    07496837465
                   </a>
                 </div>
               </div>
@@ -411,7 +411,6 @@ export default function GetInTouch() {
                 <Link href="/Spotlight" className="footer-link">Spotlight</Link>
                 <Link href="/Bridal" className="footer-link">Bridal</Link>
                 <Link href="/Collab" className="footer-link">Collab</Link>
-                <Link href="/Booking" className="footer-link">Booking</Link>
                 <Link href="/Contact" className="footer-link">Contact</Link>
               </nav>
             </div>

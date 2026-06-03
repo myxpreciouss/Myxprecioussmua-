@@ -10,20 +10,6 @@ const testimonials = [
       "I felt like the most beautiful version of myself. Every detail was perfect — from the trial to the morning of the wedding. Truly stress-free.",
     look: "Soft Glam",
   },
-  {
-    name: "Chidinma E.",
-    date: "June 2024",
-    quote:
-      "The communication was incredible. I never had to chase or worry about anything. She just made it easy and the makeup lasted all night!",
-    look: "Dewy Natural",
-  },
-  {
-    name: "Sophie T.",
-    date: "September 2024",
-    quote:
-      "I cried happy tears when I saw my reflection. She listened to everything I wanted and then delivered beyond what I imagined.",
-    look: "Classic Bridal",
-  },
 ];
 
 const fees = [
@@ -31,7 +17,7 @@ const fees = [
   { label: "Saturday & Sunday", amount: "+£20" },
   { label: "After 6pm", amount: "+£10" },
   { label: "Same Day Booking", amount: "+£15" },
-  { label: "Travel Outside Milton Keynes", amount: "To be Decided" },
+  { label: "Travel Outside Milton Keynes", amount: "Quoted individually" },
 ];
 
 export default function BridalPage() {
@@ -158,13 +144,13 @@ export default function BridalPage() {
                 className="text-xs tracking-[0.3em] text-[#c9a96e] uppercase mb-3"
                 style={{ fontFamily: "'Jost', sans-serif", fontWeight: 300 }}
               >
-                Client Stories
+                Spotlight
               </p>
               <h2
                 className="text-[#2c1f14]"
                 style={{ fontFamily: "'Cormorant Garamond', Georgia, serif", fontWeight: 500, fontSize: "2rem" }}
               >
-                What They Said
+                What My Client Said
               </h2>
             </div>
 
@@ -278,16 +264,16 @@ export default function BridalPage() {
                     }}
                   >
                     <span
-                      className="font-medium"
-                      style={{ color: "#c9a96e", fontFamily: "'Cormorant Garamond', Georgia, serif", fontSize: "1.5rem" }}
-                    >
-                      £70
-                    </span>
-                    <span
                       className="text-xs text-[#a08060]"
                       style={{ fontFamily: "'Jost', sans-serif", fontWeight: 300 }}
                     >
                       starting from
+                    </span>
+                    <span
+                      className="font-medium"
+                      style={{ color: "#c9a96e", fontFamily: "'Cormorant Garamond', Georgia, serif", fontSize: "1.5rem" }}
+                    >
+                      £70
                     </span>
                   </div>
                 </div>
@@ -298,12 +284,7 @@ export default function BridalPage() {
           {/* ── ADDITIONAL FEES ── */}
           <section className="mb-10 fade-up delay-3">
             <div className="text-center mb-8">
-              <p
-                className="text-xs tracking-[0.3em] text-[#c9a96e] uppercase mb-3"
-                style={{ fontFamily: "'Jost', sans-serif", fontWeight: 300 }}
-              >
-                Transparent Pricing
-              </p>
+           
               <h2
                 className="text-[#2c1f14]"
                 style={{ fontFamily: "'Cormorant Garamond', Georgia, serif", fontWeight: 500, fontSize: "2rem" }}
@@ -342,7 +323,7 @@ export default function BridalPage() {
                   className="text-xs text-[#a08060]"
                   style={{ fontFamily: "'Lora', Georgia, serif", fontStyle: "italic" }}
                 >
-                  All fees confirmed at the time of booking.
+                  The following fess are added to your service price where applicable and may be combined. All additional fees will be confirmed on the invoice. 
                 </p>
               </div>
             </div>
@@ -407,7 +388,7 @@ export default function BridalPage() {
                   textDecoration: "none",
                 }}
               >
-                Book Your Trial ✦
+                Request Appointment ✦
               </a>
             </div>
           </section>

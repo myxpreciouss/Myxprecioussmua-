@@ -296,7 +296,6 @@ export default function Spotlight() {
 
           {/* ── Right / Top (mobile): Testimonial ── */}
           <div className="text-col fade-up">
-            <p className="spotlight-eyebrow">Client Story</p>
             <h2 className="spotlight-title">
               Spotlight
             </h2>

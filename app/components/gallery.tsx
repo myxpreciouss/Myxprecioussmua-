@@ -12,16 +12,7 @@ interface PortfolioItem {
 }
 
 const portfolioItems: PortfolioItem[] = [
-  {
-    id: 1,
-    image: "/IMG-20260507-WA0015.jpg",
-    alt: "Bridal makeup look",
-    title: "Bridal Glam",
-    description: "My Bridal service made simple so you can look stunning. Let's book you in for a preview!",
-    cta: "View Service",
-    href: "/Booking",
-    imageLeft: true,
-  },
+  
   {
     id: 2,
     image: "/Ophelia2.jpg",
@@ -32,16 +23,7 @@ const portfolioItems: PortfolioItem[] = [
     href: "/Booking",
     imageLeft: false,
   },
-  {
-    id: 3,
-    image: "/picture1.jpg",
-    alt: "Editorial makeup look",
-    title: "Editorial & Creative",
-    description: "I love working with creatives, photographers, brands and businesses creating high-quality content and memorable experiences.",
-    cta: "Contact Me",
-    href: "/Contact",
-    imageLeft: true,
-  },
+  
 ];
 
 export default function Gallery() {

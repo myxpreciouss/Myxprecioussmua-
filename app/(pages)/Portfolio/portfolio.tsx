@@ -546,8 +546,8 @@ export default function Portfolio() {
 
         {/* ── Book CTA ── */}
         <div className="pf-cta-wrap">
-          <Link href="/Booking" className="pf-cta-btn">
-            Book Your Look ✦
+          <Link href="/" className="pf-cta-btn">
+            Request Appointment ✦
           </Link>
         </div>
 
