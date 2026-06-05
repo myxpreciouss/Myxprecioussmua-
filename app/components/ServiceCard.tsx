@@ -328,13 +328,13 @@ export default function ServicesCards() {
           ))}
         </div>
 
-        {/* ── CTA ── */}
+        {/* ── CTA ── 
         <div className="sv-cta-wrap sv-fade-up">
           <Link href="/Booking" className="sv-cta-btn">
             See our services ✦
           </Link>
         </div>
-
+*/}
       </section>
     </>
   );

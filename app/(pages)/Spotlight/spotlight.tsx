@@ -344,7 +344,7 @@ export default function Spotlight() {
 
         {/* ── Book CTA ── */}
         <div className="sp-cta-wrap sp-fade-up sp-delay-3">
-          <Link href="/Booking" className="sp-cta-btn">
+          <Link href="/Request-Appointment" className="sp-cta-btn">
             Book Your Look ✦
           </Link>
         </div>

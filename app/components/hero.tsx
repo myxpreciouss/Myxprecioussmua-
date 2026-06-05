@@ -256,7 +256,7 @@ export default function Hero() {
               Based in Milton Keynes · Available to travel
             </p>
 
-            <Link href="/" className="hero-cta fade-up delay-4">
+            <Link href="/Request-Appointment" className="hero-cta fade-up delay-4">
               Request Appointment ✦
             </Link>
 

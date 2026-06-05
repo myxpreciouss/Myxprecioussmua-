@@ -157,7 +157,7 @@ export default function Navbar() {
           {/* Desktop CTA */}
           <div className="hidden md:block">
             <Link
-              href="/"
+              href="/Request-Appointment"
               className="text-xs uppercase tracking-widest px-5 py-2 rounded-full transition-all duration-250"
               style={{
                 fontFamily: "'Jost', sans-serif",
@@ -257,7 +257,7 @@ export default function Navbar() {
 
         {/* Mobile CTA */}
         <Link
-          href="/Booking"
+          href="/Request-Appointment"
           onClick={() => setMenuOpen(false)}
           className="text-xs uppercase tracking-widest px-8 py-3 rounded-full"
           style={{

@@ -375,8 +375,8 @@ export default function BridalPage() {
                 .
               </p>
 
-              <a
-                href="#contact"
+              <Link
+                href="/Request-Appointment"
                 className="cta-btn inline-flex items-center gap-2 px-8 py-3 rounded-full text-sm uppercase tracking-widest"
                 style={{
                   background: "linear-gradient(135deg, #c9a96e, #a07840)",
@@ -389,7 +389,7 @@ export default function BridalPage() {
                 }}
               >
                 Request Appointment ✦
-              </a>
+              </Link>
             </div>
           </section>
 

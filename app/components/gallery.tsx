@@ -20,7 +20,7 @@ const portfolioItems: PortfolioItem[] = [
     title: "Soft Glam",
     description: "Whatever the occasion, let's get you looking polished, feeling confident and camera-ready.",
     cta: "Book Now",
-    href: "/Booking",
+    href: "/Request-Appointment",
     imageLeft: false,
   },
   
@@ -257,7 +257,7 @@ export default function Gallery() {
       <div style={{ backgroundColor: '#faf6f1' }}>
       {/* Banner sits outside section so it's truly full-width with no padding */}
       <div className="gallery-banner g-fade-up">
-        <p className="gallery-banner-title">BOOKING</p>
+        <p className="gallery-banner-title">OCCASION</p>
         <p className="gallery-banner-sub">
           I take pride in creating flawless, bespoke looks that enhance
           your natural beauty and makes you feel your most confident

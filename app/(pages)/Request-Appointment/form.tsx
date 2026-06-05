@@ -1,0 +1,557 @@
+'use client'
+import { useState } from 'react'
+import Link from 'next/link'
+
+type ServiceType = 'bridal' | 'occasion' | ''
+type TrialChoice = 'yes' | 'no' | null
+
+export default function BookingPage() {
+  const [serviceType, setServiceType] = useState<ServiceType>('')
+  const [trialChoice, setTrialChoice] = useState<TrialChoice>(null)
+  const [peopleCount, setPeopleCount] = useState(1)
+  const [submitted, setSubmitted] = useState(false)
+
+  const [form, setForm] = useState({
+    fullName: '',
+    email: '',
+    phone: '',
+    occasion: '',
+    date: '',
+    time: '',
+    location: '',
+    additionalInfo: '',
+  })
+
+  const handleServiceChange = (val: ServiceType) => {
+    setServiceType(val)
+    setTrialChoice(null)
+  }
+
+  const handleTrialChange = (val: 'yes' | 'no') => {
+    setTrialChoice(val)
+  }
+
+  const adjustPeople = (delta: number) => {
+    setPeopleCount(prev => Math.max(1, Math.min(20, prev + delta)))
+  }
+
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
+    setForm(prev => ({ ...prev, [e.target.name]: e.target.value }))
+  }
+
+  const handleSubmit = () => {
+    setSubmitted(true)
+  }
+
+  const showTrialBox = serviceType !== ''
+  const isTrialOnly = trialChoice === 'yes'
+  const isFullForm = trialChoice === 'no'
+
+  return (
+    <>
+      <style>{`
+        @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Lora:ital,wght@0,400;0,500;1,400&family=Jost:wght@300;400&display=swap');
+
+        .grain-overlay::before {
+          content: '';
+          position: fixed;
+          inset: 0;
+          background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+          pointer-events: none;
+          z-index: 0;
+          opacity: 0.4;
+        }
+
+        @keyframes fadeUp {
+          from { opacity: 0; transform: translateY(20px); }
+          to   { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes slideDown {
+          from { opacity: 0; transform: translateY(-10px); }
+          to   { opacity: 1; transform: translateY(0); }
+        }
+
+        .fade-up   { animation: fadeUp 0.7s ease both; }
+        .delay-1   { animation-delay: 0.12s; }
+        .delay-2   { animation-delay: 0.24s; }
+        .slide-in  { animation: slideDown 0.35s ease both; }
+
+        .booking-input {
+          width: 100%;
+          background: #fdf8f2;
+          border: 1px solid #e8ddd4;
+          border-radius: 10px;
+          padding: 12px 16px;
+          font-family: 'Lora', Georgia, serif;
+          font-size: 14px;
+          color: #2c1f14;
+          outline: none;
+          transition: border-color 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+          appearance: none;
+          -webkit-appearance: none;
+          box-sizing: border-box;
+        }
+        .booking-input:focus {
+          border-color: #c9a96e;
+          box-shadow: 0 0 0 3px rgba(201,169,110,0.12);
+          background: #fff;
+        }
+        .booking-input::placeholder {
+          color: #c8b8a8;
+          font-style: italic;
+        }
+
+        .booking-select {
+          background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23c9a96e' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+          background-repeat: no-repeat;
+          background-position: right 14px center;
+          padding-right: 38px !important;
+          cursor: pointer;
+        }
+        .booking-select option { font-family: sans-serif; }
+
+        .radio-opt input[type="radio"] {
+          position: absolute;
+          opacity: 0;
+          width: 0;
+          height: 0;
+        }
+        .radio-face {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          gap: 7px;
+          padding: 11px 16px;
+          border: 1px solid #e8ddd4;
+          border-radius: 10px;
+          background: #fff;
+          font-family: 'Lora', Georgia, serif;
+          font-size: 13px;
+          color: #7a5c46;
+          transition: border-color 0.2s ease, background 0.2s ease, color 0.2s ease;
+          cursor: pointer;
+          user-select: none;
+        }
+        .radio-opt input[type="radio"]:checked + .radio-face {
+          border-color: #c9a96e;
+          background: linear-gradient(135deg, rgba(201,169,110,0.1), rgba(201,169,110,0.05));
+          color: #2c1f14;
+        }
+        .radio-dot {
+          width: 10px;
+          height: 10px;
+          border-radius: 50%;
+          border: 1.5px solid #c9a96e;
+          flex-shrink: 0;
+          transition: background 0.2s ease;
+          display: inline-block;
+        }
+        .radio-opt input[type="radio"]:checked + .radio-face .radio-dot {
+          background: #c9a96e;
+        }
+
+        .people-row {
+          display: flex;
+          align-items: center;
+          background: #fdf8f2;
+          border: 1px solid #e8ddd4;
+          border-radius: 10px;
+          overflow: hidden;
+          transition: border-color 0.2s ease, box-shadow 0.2s ease;
+        }
+        .people-row:focus-within {
+          border-color: #c9a96e;
+          box-shadow: 0 0 0 3px rgba(201,169,110,0.12);
+          background: #fff;
+        }
+        .people-btn {
+          width: 44px;
+          height: 44px;
+          flex-shrink: 0;
+          background: none;
+          border: none;
+          cursor: pointer;
+          font-size: 20px;
+          color: #c9a96e;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          transition: background 0.15s ease;
+          font-family: 'Jost', sans-serif;
+          font-weight: 300;
+        }
+        .people-btn:hover { background: rgba(201,169,110,0.1); }
+
+        .people-display {
+          flex: 1;
+          text-align: center;
+          font-family: 'Lora', Georgia, serif;
+          font-size: 14px;
+          color: #2c1f14;
+          pointer-events: none;
+          padding: 12px 8px;
+        }
+
+        .fee-row { transition: background 0.2s ease; }
+        .fee-row:hover { background: rgba(201,169,110,0.05) !important; }
+
+        .cta-btn {
+          transition: box-shadow 0.25s ease, transform 0.25s ease;
+        }
+        .cta-btn:hover {
+          box-shadow: 0 6px 28px rgba(201,169,110,0.4) !important;
+          transform: translateY(-1px);
+        }
+        .cta-btn:active { transform: translateY(0); }
+
+        @media (max-width: 560px) {
+          .two-col-grid { grid-template-columns: 1fr !important; }
+          .form-card-inner { padding: 28px 20px 36px !important; }
+        }
+      `}</style>
+
+      <div className="grain-overlay min-h-screen relative" style={{ backgroundColor: '#faf6f1' }}>
+
+        {/* Top gold bar */}
+        <div className="h-1 w-full" style={{ background: 'linear-gradient(to right, #c9a96e, #e8c99a, #c9a96e)' }} />
+
+        <div className="relative z-10 max-w-2xl mx-auto px-6 py-16">
+
+          {/* ── HEADER ── */}
+          <header className="text-center mb-12 fade-up">
+            <p
+              className="text-xs tracking-[0.3em] text-[#c9a96e] uppercase mb-4"
+              style={{ fontFamily: "'Jost', sans-serif", fontWeight: 300 }}
+            >
+              Myxprecioussmua
+            </p>
+            <h1
+              className="leading-tight text-[#2c1f14] mb-3"
+              style={{ fontFamily: "'Cormorant Garamond', Georgia, serif", fontWeight: 500, fontSize: 'clamp(2rem, 6vw, 2.8rem)' }}
+            >
+              Book Your
+              <br />
+              <em style={{ fontWeight: 400 }}>Appointment</em>
+            </h1>
+            <div className="flex items-center justify-center gap-3 mt-5">
+              <div className="h-px w-12 bg-[#c9a96e]/40" />
+              <span className="text-[#c9a96e] text-xs">✦</span>
+              <div className="h-px w-12 bg-[#c9a96e]/40" />
+            </div>
+          </header>
+
+          {/* ── FORM CARD ── */}
+          <div
+            className="rounded-2xl border fade-up delay-1"
+            style={{
+              background: '#fff',
+              borderColor: '#e8ddd4',
+              boxShadow: '0 2px 24px rgba(44,31,20,0.04)',
+            }}
+          >
+            <div className="form-card-inner px-10 py-10">
+
+              {submitted ? (
+                /* ── SUCCESS STATE ── */
+                <div className="text-center py-12 slide-in">
+                  <div
+                    className="w-14 h-14 rounded-full flex items-center justify-center mx-auto mb-5 text-xl"
+                    style={{
+                      background: 'rgba(201,169,110,0.12)',
+                      border: '1px solid rgba(201,169,110,0.3)',
+                      color: '#c9a96e',
+                    }}
+                  >
+                    ✦
+                  </div>
+                  <h2
+                    className="text-[#2c1f14] mb-3"
+                    style={{ fontFamily: "'Cormorant Garamond', Georgia, serif", fontWeight: 500, fontStyle: 'italic', fontSize: '1.9rem' }}
+                  >
+                    Thank you, lovely!
+                  </h2>
+                  <p
+                    className="text-sm text-[#7a5c46] leading-relaxed"
+                    style={{ fontFamily: "'Lora', Georgia, serif", lineHeight: 1.9 }}
+                  >
+                    Your request has been received.<br />
+                    I'll be in touch shortly to confirm your booking details.
+                  </p>
+                </div>
+              ) : (
+                <>
+                  {/* ── YOUR DETAILS ── */}
+                  <SectionDivider label="Your Details" />
+
+                  <div className="mb-6">
+                    <FieldLabel>Full Name <Req /></FieldLabel>
+                    <input
+                      name="fullName"
+                      value={form.fullName}
+                      onChange={handleChange}
+                      placeholder="e.g. John Doe"
+                      className="booking-input"
+                    />
+                  </div>
+
+                  <div className="two-col-grid mb-6" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '18px' }}>
+                    <div>
+                      <FieldLabel>Email Address <Req /></FieldLabel>
+                      <input
+                        name="email"
+                        type="email"
+                        value={form.email}
+                        onChange={handleChange}
+                        placeholder="hello@example.com"
+                        className="booking-input"
+                      />
+                    </div>
+                    <div>
+                      <FieldLabel>Phone Number <Req /></FieldLabel>
+                      <input
+                        name="phone"
+                        type="tel"
+                        value={form.phone}
+                        onChange={handleChange}
+                        placeholder="+44 7700 000000"
+                        className="booking-input"
+                      />
+                    </div>
+                  </div>
+
+                  {/* ── SERVICE ── */}
+                  <SectionDivider label="Your Service" />
+
+                  <div className="mb-6">
+                    <FieldLabel>Make-up Service <Req /></FieldLabel>
+                    <select
+                      value={serviceType}
+                      onChange={e => handleServiceChange(e.target.value as ServiceType)}
+                      className="booking-input booking-select"
+                    >
+                      <option value="" disabled>Select a service…</option>
+                      <option value="bridal">Bridal</option>
+                      <option value="occasion">Occasion</option>
+                    </select>
+                  </div>
+
+                  {/* ── TRIAL REVEAL BOX ── */}
+                  {showTrialBox && (
+                    <div
+                      className="rounded-xl border mb-6 slide-in"
+                      style={{
+                        background: 'linear-gradient(135deg, #fdf8f2, #faf3ea)',
+                        borderColor: 'rgba(201,169,110,0.3)',
+                        padding: '22px 24px',
+                      }}
+                    >
+                      <p
+                        className="text-[#2c1f14] mb-4 flex items-center gap-2"
+                        style={{ fontFamily: "'Cormorant Garamond', Georgia, serif", fontWeight: 500, fontSize: '1.15rem' }}
+                      >
+                        <span style={{ color: 'rgba(201,169,110,0.7)', fontSize: '13px' }}>✦</span>
+                        Are you interested in a Trial?
+                      </p>
+                      <div className="flex gap-3">
+                        {(['yes', 'no'] as const).map(val => (
+                          <label key={val} className="radio-opt flex-1 relative cursor-pointer">
+                            <input
+                              type="radio"
+                              name="trial"
+                              value={val}
+                              checked={trialChoice === val}
+                              onChange={() => handleTrialChange(val)}
+                            />
+                            <div className="radio-face">
+                              <div className="radio-dot" />
+                              {val === 'yes' ? "Yes, I'd like a trial" : 'No, continue booking'}
+                            </div>
+                          </label>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+
+                  {/* ── FULL FORM (Trial: No) ── */}
+                  {isFullForm && (
+                    <div className="slide-in">
+                      <div className="mb-6">
+                        <FieldLabel>What is the Occasion? <Req /></FieldLabel>
+                        <input
+                          name="occasion"
+                          value={form.occasion}
+                          onChange={handleChange}
+                          placeholder="e.g. Wedding, Birthday, Prom…"
+                          className="booking-input"
+                        />
+                      </div>
+                    </div>
+                  )}
+
+                  {/* ── DATE & LOCATION — shown for both trial and full ── */}
+                  {(isFullForm || isTrialOnly) && (
+                    <div className="slide-in">
+                      <SectionDivider label="Date & Location" />
+
+                      <div className="two-col-grid mb-6" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '18px' }}>
+                        <div>
+                          <FieldLabel>Date <Req /></FieldLabel>
+                          <input
+                            name="date"
+                            type="date"
+                            value={form.date}
+                            onChange={handleChange}
+                            className="booking-input"
+                          />
+                        </div>
+                        <div>
+                          <FieldLabel>Time <Req /></FieldLabel>
+                          <input
+                            name="time"
+                            type="time"
+                            value={form.time}
+                            onChange={handleChange}
+                            className="booking-input"
+                          />
+                        </div>
+                      </div>
+
+                      <div className="mb-6">
+                        <FieldLabel>Location <Req /></FieldLabel>
+                        <input
+                          name="location"
+                          value={form.location}
+                          onChange={handleChange}
+                          placeholder="Address or area, e.g. Milton Keynes"
+                          className="booking-input"
+                        />
+                      </div>
+                    </div>
+                  )}
+
+                  {/* ── MAKE-UP PARTY — full form only ── */}
+                  {isFullForm && (
+                    <div className="slide-in">
+                      <SectionDivider label="Make-up Party" />
+
+                      <div className="mb-6">
+                        <FieldLabel>Number of People Requiring Make-up</FieldLabel>
+                        <div className="people-row">
+                          <button type="button" className="people-btn" onClick={() => adjustPeople(-1)}>−</button>
+                          <div className="people-display">{peopleCount} {peopleCount === 1 ? 'person' : 'people'}</div>
+                          <button type="button" className="people-btn" onClick={() => adjustPeople(1)}>+</button>
+                        </div>
+                      </div>
+
+                      <div className="mb-6">
+                        <FieldLabel>Additional Information</FieldLabel>
+                        <textarea
+                          name="additionalInfo"
+                          value={form.additionalInfo}
+                          onChange={handleChange}
+                          rows={5}
+                          placeholder="Share any details — skin concerns, inspo images, special requests, allergies…"
+                          className="booking-input"
+                          style={{ resize: 'vertical', lineHeight: 1.75 }}
+                        />
+                      </div>
+                    </div>
+                  )}
+
+                  {/* ── SUBMIT ── */}
+                  {(isFullForm || isTrialOnly) && (
+                    <div className="mt-8 slide-in">
+                      <button
+                        type="button"
+                        onClick={handleSubmit}
+                        className="cta-btn w-full py-4 rounded-full text-xs uppercase tracking-[0.2em]"
+                        style={{
+                          background: 'linear-gradient(135deg, #c9a96e, #a07840)',
+                          color: '#faf6f1',
+                          fontFamily: "'Jost', sans-serif",
+                          fontWeight: 300,
+                          border: 'none',
+                          cursor: 'pointer',
+                          boxShadow: '0 4px 18px rgba(201,169,110,0.28)',
+                          letterSpacing: '0.2em',
+                        }}
+                      >
+                        Submit Request ✦
+                      </button>
+
+                      <p
+                        className="text-center mt-4 text-xs text-[#a08060]"
+                        style={{ fontFamily: "'Lora', Georgia, serif", fontStyle: 'italic', lineHeight: 1.8 }}
+                      >
+                        By submitting you agree to the{' '}
+                        <Link
+                          href="/Terms&Conditions"
+                          className="underline underline-offset-4 transition-colors duration-200"
+                          style={{ color: '#c9a96e' }}
+                        >
+                          Terms &amp; Conditions
+                        </Link>
+                        .<br />
+                        A £35 non-refundable booking fee secures your date.
+                      </p>
+                    </div>
+                  )}
+                </>
+              )}
+            </div>
+          </div>
+
+          {/* ── FOOTER ── */}
+          <footer className="text-center mt-10 fade-up delay-2">
+            <div className="flex items-center justify-center gap-3 mb-4">
+              <div className="h-px w-8 bg-[#c9a96e]/30" />
+              <span className="text-[#c9a96e]/50 text-xs">✦</span>
+              <div className="h-px w-8 bg-[#c9a96e]/30" />
+            </div>
+            <p
+              className="text-xs text-[#b09070]"
+              style={{ fontFamily: "'Jost', sans-serif", fontWeight: 300, letterSpacing: '0.1em' }}
+            >
+              © Myxprecioussmua — All rights reserved
+            </p>
+          </footer>
+
+        </div>
+      </div>
+    </>
+  )
+}
+
+/* ── Small helper components ── */
+
+function SectionDivider({ label }: { label: string }) {
+  return (
+    <div className="flex items-center gap-3 my-8">
+      <div className="h-px flex-1" style={{ background: 'rgba(201,169,110,0.2)' }} />
+      <span
+        className="text-xs uppercase tracking-[0.28em] whitespace-nowrap"
+        style={{ color: '#c9a96e', fontFamily: "'Jost', sans-serif", fontWeight: 300 }}
+      >
+        {label}
+      </span>
+      <div className="h-px flex-1" style={{ background: 'rgba(201,169,110,0.2)' }} />
+    </div>
+  )
+}
+
+function FieldLabel({ children }: { children: React.ReactNode }) {
+  return (
+    <label
+      className="block mb-2 text-xs uppercase tracking-[0.2em]"
+      style={{ color: '#a08060', fontFamily: "'Jost', sans-serif", fontWeight: 300 }}
+    >
+      {children}
+    </label>
+  )
+}
+
+function Req() {
+  return <span style={{ color: '#c9a96e', marginLeft: '3px' }}>*</span>
+}
