@@ -11,6 +11,8 @@ export default function BookingPage() {
   const [trialChoice, setTrialChoice] = useState<TrialChoice>(null)
   const [peopleCount, setPeopleCount] = useState(1)
   const [submitted, setSubmitted] = useState(false)
+  const [loading, setLoading] = useState(false)
+  const [error, setError] = useState<string | null>(null)
   const [appointmentType, setAppointmentType] = useState<AppointmentType>('')
 
   const [form, setForm] = useState({
@@ -52,8 +54,29 @@ export default function BookingPage() {
     setForm(prev => ({ ...prev, [field]: value }))
   }
 
-  const handleSubmit = () => {
-    setSubmitted(true)
+  const handleSubmit = async () => {
+    setLoading(true)
+    setError(null)
+    try {
+      const res = await fetch('/api/booking', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          ...form,
+          serviceType,
+          trialChoice,
+          appointmentType,
+          peopleCount,
+        }),
+      })
+      const json = await res.json()
+      if (!res.ok || !json.success) throw new Error(json.error || 'Something went wrong')
+      setSubmitted(true)
+    } catch (err: unknown) {
+      setError(err instanceof Error ? err.message : 'Something went wrong. Please try again.')
+    } finally {
+      setLoading(false)
+    }
   }
 
   const showTrialBox = serviceType !== ''
@@ -536,20 +559,33 @@ export default function BookingPage() {
                       <button
                         type="button"
                         onClick={handleSubmit}
+                        disabled={loading}
                         className="cta-btn w-full py-4 rounded-full text-xs uppercase tracking-[0.2em]"
                         style={{
-                          background: 'linear-gradient(135deg, #c9a96e, #a07840)',
+                          background: loading
+                            ? 'linear-gradient(135deg, #d4b87e, #b08850)'
+                            : 'linear-gradient(135deg, #c9a96e, #a07840)',
                           color: '#faf6f1',
                           fontFamily: "'Jost', sans-serif",
                           fontWeight: 300,
                           border: 'none',
-                          cursor: 'pointer',
+                          cursor: loading ? 'not-allowed' : 'pointer',
                           boxShadow: '0 4px 18px rgba(201,169,110,0.28)',
                           letterSpacing: '0.2em',
+                          opacity: loading ? 0.8 : 1,
                         }}
                       >
-                        Submit Request ✦
+                        {loading ? 'Sending…' : 'Submit Request ✦'}
                       </button>
+
+                      {error && (
+                        <p
+                          className="text-center mt-3 text-xs"
+                          style={{ fontFamily: "'Lora', Georgia, serif", color: '#c0614a', fontStyle: 'italic' }}
+                        >
+                          {error}
+                        </p>
+                      )}
 
                       <p
                         className="text-center mt-4 text-xs text-[#a08060]"
