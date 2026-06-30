@@ -572,22 +572,6 @@ export default function BookingPage() {
               )}
             </div>
           </div>
-
-          {/* ── FOOTER ── */}
-          <footer className="text-center mt-10 fade-up delay-2">
-            <div className="flex items-center justify-center gap-3 mb-4">
-              <div className="h-px w-8 bg-[#c9a96e]/30" />
-              <span className="text-[#c9a96e]/50 text-xs">✦</span>
-              <div className="h-px w-8 bg-[#c9a96e]/30" />
-            </div>
-            <p
-              className="text-xs text-[#b09070]"
-              style={{ fontFamily: "'Jost', sans-serif", fontWeight: 300, letterSpacing: '0.1em' }}
-            >
-              © Myxprecioussmua — All rights reserved
-            </p>
-          </footer>
-
         </div>
       </div>
     </>

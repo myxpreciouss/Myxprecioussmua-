@@ -1,6 +1,7 @@
 'use client'
 import { useState } from "react";
 import Link from "next/link";
+import Footer from "./footer"
 
 export default function GetInTouch() {
   const [form, setForm] = useState({ name: "", email: "", message: "" });
@@ -397,36 +398,7 @@ export default function GetInTouch() {
 
         </div>
 
-        {/* ── FOOTER ── */}
-        <footer className="relative z-10 border-t" style={{ borderColor: "#e8ddd4" }}>
-          <div style={{ maxWidth: "672px", margin: "0 auto" }} className="px-6 py-8">
-            <div className="footer-inner flex flex-col md:flex-row items-center justify-between gap-6">
-              <p
-                className="text-sm tracking-[0.2em] text-[#2c1f14] uppercase"
-                style={{ fontFamily: "'Cormorant Garamond', Georgia, serif", fontWeight: 500 }}
-              >
-                Myxprecioussmua
-              </p>
-              <nav className="footer-nav flex items-center gap-6">
-                <Link href="/Spotlight" className="footer-link">Spotlight</Link>
-                <Link href="/Bridal" className="footer-link">Bridal</Link>
-                <Link href="/Collab" className="footer-link">Collab</Link>
-                <Link href="/Contact" className="footer-link">Contact</Link>
-              </nav>
-            </div>
-            <div className="flex items-center justify-center gap-3 mt-7 mb-4">
-              <div className="h-px w-8 bg-[#c9a96e]/30" />
-              <span className="text-[#c9a96e]/50 text-xs">✦</span>
-              <div className="h-px w-8 bg-[#c9a96e]/30" />
-            </div>
-            <p
-              className="text-center text-xs text-[#b09070]"
-              style={{ fontFamily: "'Jost', sans-serif", fontWeight: 300, letterSpacing: "0.1em" }}
-            >
-              © Myxprecioussmua — All rights reserved
-            </p>
-          </div>
-        </footer>
+        < Footer />
 
       </div>
     </>
