@@ -4,12 +4,14 @@ import Link from 'next/link'
 
 type ServiceType = 'bridal' | 'occasion' | ''
 type TrialChoice = 'yes' | 'no' | null
+type AppointmentType = 'studio' | 'mobile' | ''
 
 export default function BookingPage() {
   const [serviceType, setServiceType] = useState<ServiceType>('')
   const [trialChoice, setTrialChoice] = useState<TrialChoice>(null)
   const [peopleCount, setPeopleCount] = useState(1)
   const [submitted, setSubmitted] = useState(false)
+  const [appointmentType, setAppointmentType] = useState<AppointmentType>('')
 
   const [form, setForm] = useState({
     fullName: '',
@@ -17,7 +19,9 @@ export default function BookingPage() {
     phone: '',
     occasion: '',
     date: '',
-    time: '',
+    timeHour: '',
+    timeMinute: '',
+    timePeriod: '',
     location: '',
     additionalInfo: '',
   })
@@ -39,6 +43,13 @@ export default function BookingPage() {
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
     setForm(prev => ({ ...prev, [e.target.name]: e.target.value }))
+  }
+
+  const handleTimeChange = (
+    field: 'timeHour' | 'timeMinute' | 'timePeriod',
+    value: string
+  ) => {
+    setForm(prev => ({ ...prev, [field]: value }))
   }
 
   const handleSubmit = () => {
@@ -99,7 +110,7 @@ export default function BookingPage() {
           background: #fff;
         }
         .booking-input::placeholder {
-          color: #c8b8a8;
+          color: #9a8470;
           font-style: italic;
         }
 
@@ -111,6 +122,15 @@ export default function BookingPage() {
           cursor: pointer;
         }
         .booking-select option { font-family: sans-serif; }
+
+        .time-select {
+          background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='7' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23c9a96e' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+          background-repeat: no-repeat;
+          background-position: right 10px center;
+          padding-right: 26px !important;
+          cursor: pointer;
+          text-align: center;
+        }
 
         .radio-opt input[type="radio"] {
           position: absolute;
@@ -129,7 +149,7 @@ export default function BookingPage() {
           background: #fff;
           font-family: 'Lora', Georgia, serif;
           font-size: 13px;
-          color: #7a5c46;
+          color: #5a4435;
           transition: border-color 0.2s ease, background 0.2s ease, color 0.2s ease;
           cursor: pointer;
           user-select: none;
@@ -209,6 +229,7 @@ export default function BookingPage() {
         @media (max-width: 560px) {
           .two-col-grid { grid-template-columns: 1fr !important; }
           .form-card-inner { padding: 28px 20px 36px !important; }
+          .time-grid { grid-template-columns: 1fr 1fr 1fr !important; }
         }
       `}</style>
 
@@ -395,39 +416,88 @@ export default function BookingPage() {
                     <div className="slide-in">
                       <SectionDivider label="Date & Location" />
 
-                      <div className="two-col-grid mb-6" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '18px' }}>
-                        <div>
-                          <FieldLabel>Date <Req /></FieldLabel>
-                          <input
-                            name="date"
-                            type="date"
-                            value={form.date}
-                            onChange={handleChange}
-                            className="booking-input"
-                          />
-                        </div>
-                        <div>
-                          <FieldLabel>Time <Req /></FieldLabel>
-                          <input
-                            name="time"
-                            type="time"
-                            value={form.time}
-                            onChange={handleChange}
-                            className="booking-input"
-                          />
+                      <div className="mb-6">
+                        <FieldLabel>Date <Req /></FieldLabel>
+                        <input
+                          name="date"
+                          type="date"
+                          value={form.date}
+                          onChange={handleChange}
+                          className="booking-input"
+                        />
+                      </div>
+
+                      <div className="mb-6">
+                        <FieldLabel>Time <Req /></FieldLabel>
+                        <div className="time-grid" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 0.9fr', gap: '12px' }}>
+                          <select
+                            value={form.timeHour}
+                            onChange={e => handleTimeChange('timeHour', e.target.value)}
+                            className="booking-input time-select"
+                          >
+                            <option value="" disabled>Hour</option>
+                            {Array.from({ length: 12 }, (_, i) => i + 1).map(h => (
+                              <option key={h} value={h}>{h}</option>
+                            ))}
+                          </select>
+                          <select
+                            value={form.timeMinute}
+                            onChange={e => handleTimeChange('timeMinute', e.target.value)}
+                            className="booking-input time-select"
+                          >
+                            <option value="" disabled>Min</option>
+                            {['00', '15', '30', '45'].map(m => (
+                              <option key={m} value={m}>{m}</option>
+                            ))}
+                          </select>
+                          <select
+                            value={form.timePeriod}
+                            onChange={e => handleTimeChange('timePeriod', e.target.value)}
+                            className="booking-input time-select"
+                          >
+                            <option value="" disabled>—</option>
+                            <option value="AM">AM</option>
+                            <option value="PM">PM</option>
+                          </select>
                         </div>
                       </div>
 
                       <div className="mb-6">
-                        <FieldLabel>Location <Req /></FieldLabel>
-                        <input
-                          name="location"
-                          value={form.location}
-                          onChange={handleChange}
-                          placeholder="Address or area, e.g. Milton Keynes"
-                          className="booking-input"
-                        />
+                        <FieldLabel>Appointment Type <Req /></FieldLabel>
+                        <div className="flex gap-3">
+                          {([
+                            { val: 'studio', text: 'Studio Appointment' },
+                            { val: 'mobile', text: 'Mobile Service (I come to you)' },
+                          ] as const).map(opt => (
+                            <label key={opt.val} className="radio-opt flex-1 relative cursor-pointer">
+                              <input
+                                type="radio"
+                                name="appointmentType"
+                                value={opt.val}
+                                checked={appointmentType === opt.val}
+                                onChange={() => setAppointmentType(opt.val)}
+                              />
+                              <div className="radio-face">
+                                <div className="radio-dot" />
+                                {opt.text}
+                              </div>
+                            </label>
+                          ))}
+                        </div>
                       </div>
+
+                      {appointmentType === 'mobile' && (
+                        <div className="mb-6 slide-in">
+                          <FieldLabel>Where Should I Meet You? <Req /></FieldLabel>
+                          <input
+                            name="location"
+                            value={form.location}
+                            onChange={handleChange}
+                            placeholder="Address or area, e.g. Milton Keynes"
+                            className="booking-input"
+                          />
+                        </div>
+                      )}
                     </div>
                   )}
 
@@ -545,7 +615,7 @@ function FieldLabel({ children }: { children: React.ReactNode }) {
   return (
     <label
       className="block mb-2 text-xs uppercase tracking-[0.2em]"
-      style={{ color: '#a08060', fontFamily: "'Jost', sans-serif", fontWeight: 300 }}
+      style={{ color: '#8a6850', fontFamily: "'Jost', sans-serif", fontWeight: 500 }}
     >
       {children}
     </label>

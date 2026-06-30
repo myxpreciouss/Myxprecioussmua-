@@ -1,5 +1,6 @@
 import React from 'react'
-import Gallery from "@/app/components/gallery"
+import Ocassion  from "./occasion"
+
 import Nav from "@/app/components/nav"
 import Footer from "@/app/components/footer"
 
@@ -9,7 +10,7 @@ const page = () => {
       <div className=' mb-16'>
       <Nav />
       </div>
-       <Gallery />
+       <Ocassion />
       < Footer />
     </div>
   )

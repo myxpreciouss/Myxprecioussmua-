@@ -8,7 +8,7 @@ export default function PrivacyPolicy() {
       title: "Information We Collect",
       body: [
         "Any information that you provide to us whilst using this website will be collected, stored and used when dealing with your enquiry or providing our make-up services as requested by you. This may include (but is not limited to) name, email address and telephone number.",
-        "From time to time we may send you newsletters or inform you of new services and events. You may unsubscribe at any time by contacting us at precious@gmail.com",
+        "From time to time we may send you newsletters or inform you of new services and events. You may unsubscribe at any time by contacting us at myxprecioussmua@outlook.com",
         "This also applies to other forms of contact including texting, emails, phone calls and messaging apps. We will also send you appointment information and reminders via text, email or via a messaging app.",
         "We will only share your data with a third party that you have requested or agreed to in advance. Any medical information held will only be used in connection with your appointment — the correct medical information is required to carry out your appointment safely.",
         "Any personal data collected will be treated as confidential in line with the principles of the Data Protection Act 1998. All data is stored in a secure environment with relevant security protocols.",
@@ -362,7 +362,7 @@ export default function PrivacyPolicy() {
           {/* Last updated note */}
           <div className="privacy-updated fade-up delay-2">
             <div className="privacy-updated-line" />
-            <p className="privacy-updated-text">Last reviewed — 20th May 2026</p>
+            <p className="privacy-updated-text">Last reviewed — 20th june 2026</p>
             <div className="privacy-updated-line" />
           </div>
 

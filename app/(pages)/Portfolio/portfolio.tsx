@@ -21,10 +21,10 @@ interface PortfolioImage {
 const images: PortfolioImage[] = [
   { id: 1,  srcs: ["/betty1.jpg", "/betty2.jpg"],    video: "betty-video.mp4",                                          alt: "Soft glam look",     note: "",     category: "",      tall: true },
   { id: 2,  srcs: ["/remi.png", "/remi2.png", "/remi3.png"],                         alt: "Bridal makeup",      note: "",              category: "Glam"              },
-  { id: 3,  srcs: ["/ojono-pic.jpg", "/ojono.png",  "/IMG-20260507-WA0014.jpg"],    alt: "Bridal look",     note: "Weeding Look",      category: "Bridal", tall: true },
+  { id: 3,  srcs: ["/ojono-pic.jpg",   "/IMG-20260507-WA0014.jpg"],    alt: "Bridal look",     note: "Weeding Look",      category: "Bridal", tall: true },
   { id: 4,  srcs: ["/IMG-20260602-WA0007.jpg"],                                              alt: "",      note: "Prom",        category: "Glam"           },
-  //{ id: 5,  srcs: ["/portfolio-5.jpg"],                                              alt: "Natural glam",       note: "Natural glam — birthday dinner",   category: "Glam"                },
-  //{ id: 6,  srcs: ["/portfolio-6.jpg", "/portfolio-6b.jpg"],                         alt: "Full glam",          note: "Full glam for a gala night",       category: "Glam",      tall: true },
+  { id: 5,  srcs: ["/Danielle.png"],   video:"VID-20260630-WA0014.mp4",                                           alt: "Natural glam",       note: "",   category: "Glam"                },
+ { id: 6,  srcs: ["/mummy.jpg"],   video: "mummyvideo.mp4",                      alt: "Soft glam",          note: "",       category: "Glam",      tall: true },
   //{ id: 7,  srcs: ["/portfolio-7.jpg"],                                              alt: "Bridal party",       note: "Bridal party of four",             category: "Bridal"              },
 //  { id: 8,  srcs: ["/portfolio-8.jpg"],                                              alt: "Creative makeup",    note: "Creative collab with Nia Studios", category: "Editorial",          video: "/portfolio-8-reel.mp4" },
   //{ id: 9,  srcs: ["/portfolio-9.jpg"],                                              alt: "Prom glam",          note: "Prom ready ✨",                     category: "Glam"                },
